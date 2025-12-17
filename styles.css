@@ -215,6 +215,8 @@
   
     .crest {
       justify-self: start;
+      width: 56px;
+      height: 56px;
     }
   }
   
