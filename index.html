@@ -4,10 +4,7 @@
     <meta charset="utf-8" />
     <title>Ravenclaw Entry</title>
 
-    <!-- Mobile-first viewport (QR friendly) -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Prevent auto-formatting on mobile -->
     <meta name="format-detection" content="telephone=no" />
 
     <link rel="stylesheet" href="styles.css" />
@@ -17,15 +14,18 @@
     <main class="wrap">
       <section class="card" role="region" aria-label="Ravenclaw Riddle Gate">
         <header class="header">
-          <div class="crest" aria-hidden="true">🦅</div>
-          <div>
-            <h1>Ravenclaw</h1>
-            <p class="subtitle">
-              If it is entry that you seek,<br />
-              then answer true — let wit, not might, speak.
-            </p>
-          </div>
-        </header>
+            <div class="header-text">
+              <h1>Ravenclaw</h1>
+              <p class="subtitle">
+                If it is entry that you seek,<br />
+                then answer true — let wit, not might, speak.
+              </p>
+            </div>
+          
+            <div class="crest" aria-hidden="true">
+              <img src="s-l1200.png" alt="" />
+            </div>
+          </header>
 
         <div class="divider"></div>
 
@@ -69,43 +69,51 @@
       </section>
     </main>
 
-    <!-- Obfuscated answer logic -->
     <script>
-      (function () {
-        const encoded = [102, 111, 111, 116, 115, 116, 101, 112, 115];
-        const answer = String.fromCharCode(...encoded);
+      const CORRECT_HASH =
+        "1a11a5a27be607e96d0205aa1304d7f39c97416ab35892049129d3f6eafa90fb";
 
-        const form = document.getElementById("riddleForm");
-        const input = document.getElementById("answer");
-        const feedback = document.getElementById("feedback");
+      function normalize(str) {
+        return str
+          .toLowerCase()
+          .trim()
+          .replace(/[^\p{L}\p{N}]/gu, "");
+      }
 
-        function normalize(s) {
-          return s
-            .toLowerCase()
-            .trim()
-            .replace(/[^\p{L}\p{N}]/gu, "");
+      async function sha256(text) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(text);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(hashBuffer))
+          .map(b => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      const form = document.getElementById("riddleForm");
+      const input = document.getElementById("answer");
+      const feedback = document.getElementById("feedback");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const guess = normalize(input.value);
+        const guessHash = await sha256(guess);
+
+        if (guessHash === CORRECT_HASH) {
+          feedback.textContent =
+            "Correct. The door yields. Proceed. ✨";
+          feedback.className = "feedback ok";
+          input.disabled = true;
+          form.querySelector("button").disabled = true;
+        } else {
+          feedback.textContent =
+            "Not quite. Think again, clever one.";
+          feedback.className = "feedback bad";
+          input.focus();
+          input.select();
+          if (navigator.vibrate) navigator.vibrate(30);
         }
-
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const guess = normalize(input.value);
-
-          if (guess === answer) {
-            feedback.textContent =
-              "Correct. The door yields. Proceed. ✨";
-            feedback.className = "feedback ok";
-            input.disabled = true;
-            form.querySelector("button").disabled = true;
-          } else {
-            feedback.textContent =
-              "Not quite. Think again, clever one.";
-            feedback.className = "feedback bad";
-            input.focus();
-            input.select();
-            if (navigator.vibrate) navigator.vibrate(30);
-          }
-        });
-      })();
+      });
     </script>
   </body>
 </html>
