@@ -1,0 +1,201 @@
+:root {
+    --card: rgba(12, 18, 32, 0.88);
+    --ink: #e8edf7;
+    --muted: rgba(232, 237, 247, 0.7);
+  
+    --blue: #1f6feb;
+    --gold: #d6b15a;
+    --ring: rgba(31, 111, 235, 0.35);
+    --shadow: rgba(0, 0, 0, 0.65);
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink);
+  
+    /* 🔮 BACKGROUND IMAGE */
+    background:
+      linear-gradient(
+        rgba(5, 7, 12, 0.75),
+        rgba(5, 7, 12, 0.85)
+      ),
+      url("https://i.pinimg.com/originals/33/85/b3/3385b35c8ed0cbbb104183c0339b195e.jpg");
+  
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  .wrap {
+    min-height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+  }
+  
+  .card {
+    width: min(820px, 100%);
+    padding: 28px 24px;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: 0 30px 80px var(--shadow);
+    backdrop-filter: blur(6px);
+  }
+  
+  .header {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+  
+  .crest {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    border-radius: 14px;
+    background: rgba(31, 111, 235, 0.15);
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+  }
+  
+  .subtitle {
+    margin-top: 6px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  
+  .divider {
+    height: 1px;
+    margin: 18px 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--gold),
+      var(--blue),
+      transparent
+    );
+  }
+  
+  .riddle {
+    background: rgba(5, 7, 12, 0.55);
+    padding: 16px 18px;
+    border-radius: 18px;
+  }
+  
+  .riddle p {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  
+  .dropcap {
+    float: left;
+    font-size: 42px;
+    line-height: 1;
+    margin: 4px 10px 0 0;
+    color: var(--gold);
+  }
+  
+  .form {
+    margin-top: 18px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  
+  .inputRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+  
+  input[type="text"] {
+    font-size: 16px; /* prevents iOS zoom */
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(5, 7, 12, 0.65);
+    color: var(--ink);
+    outline: none;
+  }
+  
+  input[type="text"]:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 6px var(--ring);
+  }
+  
+  .btn {
+    padding: 0 18px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(180deg, #1f6feb, #0ea5e9);
+    color: white;
+    font-weight: 700;
+  }
+  
+  .feedback {
+    margin-top: 12px;
+    min-height: 1.4em;
+  }
+  
+  .feedback.ok {
+    color: var(--gold);
+  }
+  
+  .feedback.bad {
+    color: #f87171;
+  }
+  
+  .footer {
+    margin-top: 14px;
+    text-align: center;
+  }
+  
+  .small {
+    font-size: 12px;
+    color: rgba(232, 237, 247, 0.5);
+  }
+  
+  /* 📱 Mobile tweaks */
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 24px;
+    }
+  
+    .riddle p {
+      font-size: 16px;
+    }
+  
+    .dropcap {
+      font-size: 36px;
+    }
+  
+    body {
+      background-attachment: scroll; /* smoother on mobile */
+    }
+  }
+  
